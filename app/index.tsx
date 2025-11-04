@@ -72,7 +72,6 @@ export default function Index() {
             }}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={todos.length === 0 && styles.emptyList}
-            style={styles.list}
             ListFooterComponent={
               todos.length > 0 ? (
                 <View style={[styles.listFooter, { backgroundColor: colors.surface }]}>
