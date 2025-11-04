@@ -23,6 +23,8 @@ export default function Index() {
     clearCompleted,
     reorderTodos,
     activeCount,
+    error,
+    isLoading,
   } = useTodos();
 
   const renderTodo = ({ item, drag, isActive }: any) => (
@@ -53,7 +55,12 @@ export default function Index() {
       </View>
 
       <View style={styles.content}>
-        <TodoInput onAddTodo={addTodo} />
+        {error && (
+          <View style={[styles.errorContainer, { backgroundColor: colors.surface }]}>
+            <Text style={[styles.errorText, { color: '#ff6b6b' }]}>{error}</Text>
+          </View>
+        )}
+        <TodoInput onAddTodo={addTodo} isLoading={isLoading} />
 
         <View style={[styles.listContainer, { backgroundColor: colors.surface }]}>
           <DraggableFlatList
@@ -148,6 +155,7 @@ const styles = StyleSheet.create({
     // paddingTop: ,
     // 393A4B
     marginTop: -95,
+    minHeight: '100%', // Ensure content takes full height for proper scrolling
   },
   filterContainer: {
     flexDirection: 'row',
@@ -222,5 +230,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 40,
     marginBottom: 20,
+  },
+  errorContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    marginBottom: 16,
+    borderRadius: 5,
+    borderLeftWidth: 4,
+    borderLeftColor: '#ff6b6b',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  errorText: {
+    fontSize: 14,
+    fontWeight: '500',
   },
 });

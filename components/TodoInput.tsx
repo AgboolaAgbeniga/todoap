@@ -5,9 +5,10 @@ import { useTheme } from '../contexts/ThemeContext';
 
 interface TodoInputProps {
   onAddTodo: (text: string) => void;
+  isLoading?: boolean;
 }
 
-export const TodoInput: React.FC<TodoInputProps> = ({ onAddTodo }) => {
+export const TodoInput: React.FC<TodoInputProps> = ({ onAddTodo, isLoading = false }) => {
   const { colors } = useTheme();
   const [text, setText] = useState('');
 
@@ -23,8 +24,10 @@ export const TodoInput: React.FC<TodoInputProps> = ({ onAddTodo }) => {
       <TouchableOpacity
         style={[styles.checkbox, { borderColor: colors.border }]}
         onPress={handleSubmit}
+        disabled={isLoading}
         accessibilityLabel="Add todo"
         accessibilityRole="button"
+        accessibilityState={{ disabled: isLoading }}
       />
       <TextInput
         style={[styles.input, { color: colors.text }]}
